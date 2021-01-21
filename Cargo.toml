@@ -1,0 +1,14 @@
+[package]
+name = "handler"
+version = "0.1.0"
+authors = ["Damien Pontifex <damien.pontifex@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1", features = ["rt", "macros", "rt-multi-thread"] }
+# warp = "0.3"
+actix-web = "3"
+serde = "1"
+env_logger = "0.8.2"
