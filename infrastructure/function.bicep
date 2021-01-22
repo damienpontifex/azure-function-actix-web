@@ -1,10 +1,16 @@
-param location string
+param location string = resourceGroup().location
 param appName string
 param commonTags object
+param workspaceId string {
+  default: ''
+  metadata: {
+    description: 'Optional existing log analytics workspace. If not provided, one will be created'
+  }
+}
 
 var storageName = take(replace(toLower(appName), '-', ''), 24)
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2020-10-01' = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2020-10-01' = if (workspaceId == '') {
   name: appName
   location: location
   properties: {
@@ -49,7 +55,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
   tags: commonTags
   properties: {
     Application_Type: 'web'
-    WorkspaceResourceId: workspace.id
+    WorkspaceResourceId: workspaceId == '' ? workspace.id : workspaceId
   }
 }
 

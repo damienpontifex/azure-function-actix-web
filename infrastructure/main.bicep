@@ -23,7 +23,6 @@ module app './function.bicep' = {
   name: 'functionApp'
   scope: resourceGroup(rg.name)
   params: {
-    location: location
     appName: appName
     commonTags: commonTags
   }
